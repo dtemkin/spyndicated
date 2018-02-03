@@ -1,0 +1,263 @@
+profiles:
+  ('test', null):
+      interests: []
+      models: []
+      sources:
+        -
+          name: "NY Post"
+          update_cycle: 60
+          weight: 1.0
+          topics: {}
+          feeds:
+            -
+              title: "News"
+              topics: {}
+              url: "https://nypost.com/news/feed"
+            -
+              title: "Metro"
+              topics: {}
+              url: "https://nypost.com/metro/feed"
+            -
+              title: "Sports"
+              topics: {}
+              url: "https://nypost.com/sports/feed"
+            -
+              title: "Business"
+              topics: {}
+              url: "https://nypost.com/business/feed"
+            -
+              title: "Technology"
+              topics: {}
+              url: "https://nypost.com/tech/feed"
+        -
+          name: "The Economist"
+          weight: 1.0
+          topics: {}
+          feeds:
+            -
+              title: "Science and Technology"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/science-technology/rss.xml"
+            -
+              title: "Business and Finance"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/business-finance/rss.xml"
+            -
+              title: "Economics"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/economics/rss.xml"
+            -
+              title: "Culture"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/culture/rss.xml"
+            -
+              title: "US Politics"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/united-states/rss.xml"
+            -
+              title: "International Politics"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/international/rss.xml"
+            -
+              title: "Britain Politics"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://www.economist.com/sections/britain/rss.xml"
+        -
+          name: "Associated Press"
+          update_cycle: 10
+          weight: 1.0
+          topics: {}
+          feeds:
+            -
+              title: "Top Headlines"
+              topics: {}
+              feed_update_cycle: 1440
+              url: "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
+            -
+              title: "US National"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/386c25518f464186bf7a2ac026580ce7"
+              is_preferred: false
+            -
+              title: "World"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/cae69a7523db45408eeb2b3a98c0c9c5"
+              is_preferred: false
+            -
+              title: "Politics"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/89ae8247abe8493fae24405546e9a1aa"
+              is_preferred: false
+            -
+              title: "Business"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/f70471f764144b2fab526d39972d37b3"
+              is_preferred: false
+            -
+              title: "Technology"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/495d344a0d10421e9baa8ee77029cfbd"
+              is_preferred: false
+            -
+              title: "Sports"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/347875155d53465d95cec892aeb06419"
+              is_preferred: false
+            -
+              title: "Entertainment"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/4e67281c3f754d0696fbfdee0f3f1469"
+              is_preferred: false
+            -
+              title: "Health"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/bbd825583c8542898e6fa7d440b9febc"
+              is_preferred: false
+            -
+              title: "Science"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/b2f0ca3a594644ee9e50a8ec4ce2d6de"
+              is_preferred: false
+            -
+              title: "Strange"
+              topics: {}
+              url: "http://hosted2.ap.org/atom/APDEFAULT/aa9398e6757a46fa93ed5dea7bd3729e"
+              is_preferred: false
+        -
+          name: "Wired"
+          update_cycle: 10
+          weight: 1.0
+          topics: {}
+          feeds:
+            -
+              title: "Top Stories"
+              topics: {}
+              url: "https://www.wired.com/feed/rss"
+              is_preferred: false
+            -
+              title: "Business"
+              topics: {}
+              url: "https://www.wired.com/feed/category/business/latest/rss"
+              is_preferred: false
+            -
+              title: "Culture"
+              topics: {}
+              url: "https://www.wired.com/feed/category/culture/latest/rss"
+              is_preferred: false
+            -
+              title: "Gears"
+              topics: {}
+              url: "https://www.wired.com/feed/category/gear/latest/rss"
+              is_preferred: false
+            -
+              title: "Science"
+              topics: {}
+              url: "https://www.wired.com/feed/category/science/latest/rss"
+              is_preferred: false
+            -
+              title: "Security"
+              topics: {}
+              url: "https://www.wired.com/feed/category/security/latest/rss"
+              is_preferred: false
+            -
+              title: "Transportation"
+              topics: {}
+              url: "https://www.wired.com/feed/category/transportation/latest/rss"
+              is_preferred: false
+        - 
+          name: "TechCrunch"
+          update_cycle: 30
+          weight: 1.0
+          topics: {}
+          feeds:
+            - id: 0
+              title: "TechCrunch News"
+              topics: {}
+              url: "http://feeds.feedburner.com/TechCrunch/"
+              is_preferred: false
+        -
+          name: "Denver Post"
+          update_cycle: 5
+          weight: 1.0
+          topics: {}
+          feeds:
+            - id: 0
+              title: "Breaking News"
+              topics: {}
+              url: "http://feeds.denverpost.com/dp-news-breaking"
+              is_preferred: false
+            - id: 1
+              title: "Top Stories"
+              topics: {}
+              url: "http://feeds.denverpost.com/dp-news-topstories"
+              is_preferred: false
+            - id: 2
+              title: "Business"
+              topics: {}
+              url: ""
+              is_preferred: false
+        - 
+          name: "Pew Research Center"
+          update_cycle: 2880
+          weight: 1.0
+          topics: {}
+          feeds:
+            - 
+              title: "Latest"
+              topics: {}
+              url: "http://www.pewresearch.org/feed/"
+              is_preferred: false
+        -
+          name: "NY Times"
+          update_cycle: 360
+          weight: 1.0
+          topics: {}
+          feeds:
+            - 
+              title: "World - Politics"
+              topics: {}
+              url: "http://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+              is_preferred: false
+            - 
+              title: "U.S. - Politics"
+              topics: {}
+              url: "http://www.nytimes.com/services/xml/rss/nyt/Politics.xml"
+              is_preferred: false
+            - 
+              title: "Business"
+              topics: {}
+              url: "http://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+              is_preferred: false
+            - 
+              title: "Technology"
+              topics: {}
+              url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+              is_preferred: false
+            - 
+              title: "Science"
+              topics: {}
+              url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+              is_preferred: false
+            - 
+              title: "Health"
+              topics: {}
+              url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+              is_preferred: false
+        - 
+          name: "Ars Technica"
+          update_cycle: 60
+          weight: 1.0
+          topics: {}
+          feeds:
+            - 
+              title: "All Latest"
+              topics: {}
+              url: "http://feeds.arstechnica.com/arstechnica/index"
+              is_preferred: false
