@@ -1,2 +1,13 @@
 # spyndicated
-Just an intelligent rss feed reader
+
+
+## Objective
+unclear...
+
+## Milestones
+
+- [] RSS Feed Storage (MongoDB Intergration)
+- [] Expansion of Feed List breadth
+- [] Topic Modelling Pipeline
+- [] ???
+
