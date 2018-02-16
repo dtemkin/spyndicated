@@ -1,263 +1,301 @@
-profiles:
-  ('test', null):
-      interests: []
-      models: []
-      sources:
-        -
-          name: "NY Post"
-          update_cycle: 60
-          weight: 1.0
-          topics: {}
-          feeds:
-            -
-              title: "News"
-              topics: {}
-              url: "https://nypost.com/news/feed"
-            -
-              title: "Metro"
-              topics: {}
-              url: "https://nypost.com/metro/feed"
-            -
-              title: "Sports"
-              topics: {}
-              url: "https://nypost.com/sports/feed"
-            -
-              title: "Business"
-              topics: {}
-              url: "https://nypost.com/business/feed"
-            -
-              title: "Technology"
-              topics: {}
-              url: "https://nypost.com/tech/feed"
-        -
-          name: "The Economist"
-          weight: 1.0
-          topics: {}
-          feeds:
-            -
-              title: "Science and Technology"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/science-technology/rss.xml"
-            -
-              title: "Business and Finance"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/business-finance/rss.xml"
-            -
-              title: "Economics"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/economics/rss.xml"
-            -
-              title: "Culture"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/culture/rss.xml"
-            -
-              title: "US Politics"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/united-states/rss.xml"
-            -
-              title: "International Politics"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/international/rss.xml"
-            -
-              title: "Britain Politics"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://www.economist.com/sections/britain/rss.xml"
-        -
-          name: "Associated Press"
-          update_cycle: 10
-          weight: 1.0
-          topics: {}
-          feeds:
-            -
-              title: "Top Headlines"
-              topics: {}
-              feed_update_cycle: 1440
-              url: "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
-            -
-              title: "US National"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/386c25518f464186bf7a2ac026580ce7"
-              is_preferred: false
-            -
-              title: "World"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/cae69a7523db45408eeb2b3a98c0c9c5"
-              is_preferred: false
-            -
-              title: "Politics"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/89ae8247abe8493fae24405546e9a1aa"
-              is_preferred: false
-            -
-              title: "Business"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/f70471f764144b2fab526d39972d37b3"
-              is_preferred: false
-            -
-              title: "Technology"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/495d344a0d10421e9baa8ee77029cfbd"
-              is_preferred: false
-            -
-              title: "Sports"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/347875155d53465d95cec892aeb06419"
-              is_preferred: false
-            -
-              title: "Entertainment"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/4e67281c3f754d0696fbfdee0f3f1469"
-              is_preferred: false
-            -
-              title: "Health"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/bbd825583c8542898e6fa7d440b9febc"
-              is_preferred: false
-            -
-              title: "Science"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/b2f0ca3a594644ee9e50a8ec4ce2d6de"
-              is_preferred: false
-            -
-              title: "Strange"
-              topics: {}
-              url: "http://hosted2.ap.org/atom/APDEFAULT/aa9398e6757a46fa93ed5dea7bd3729e"
-              is_preferred: false
-        -
-          name: "Wired"
-          update_cycle: 10
-          weight: 1.0
-          topics: {}
-          feeds:
-            -
-              title: "Top Stories"
-              topics: {}
-              url: "https://www.wired.com/feed/rss"
-              is_preferred: false
-            -
-              title: "Business"
-              topics: {}
-              url: "https://www.wired.com/feed/category/business/latest/rss"
-              is_preferred: false
-            -
-              title: "Culture"
-              topics: {}
-              url: "https://www.wired.com/feed/category/culture/latest/rss"
-              is_preferred: false
-            -
-              title: "Gears"
-              topics: {}
-              url: "https://www.wired.com/feed/category/gear/latest/rss"
-              is_preferred: false
-            -
-              title: "Science"
-              topics: {}
-              url: "https://www.wired.com/feed/category/science/latest/rss"
-              is_preferred: false
-            -
-              title: "Security"
-              topics: {}
-              url: "https://www.wired.com/feed/category/security/latest/rss"
-              is_preferred: false
-            -
-              title: "Transportation"
-              topics: {}
-              url: "https://www.wired.com/feed/category/transportation/latest/rss"
-              is_preferred: false
-        - 
-          name: "TechCrunch"
-          update_cycle: 30
-          weight: 1.0
-          topics: {}
-          feeds:
-            - id: 0
-              title: "TechCrunch News"
-              topics: {}
-              url: "http://feeds.feedburner.com/TechCrunch/"
-              is_preferred: false
-        -
-          name: "Denver Post"
-          update_cycle: 5
-          weight: 1.0
-          topics: {}
-          feeds:
-            - id: 0
-              title: "Breaking News"
-              topics: {}
-              url: "http://feeds.denverpost.com/dp-news-breaking"
-              is_preferred: false
-            - id: 1
-              title: "Top Stories"
-              topics: {}
-              url: "http://feeds.denverpost.com/dp-news-topstories"
-              is_preferred: false
-            - id: 2
-              title: "Business"
-              topics: {}
-              url: ""
-              is_preferred: false
-        - 
-          name: "Pew Research Center"
-          update_cycle: 2880
-          weight: 1.0
-          topics: {}
-          feeds:
-            - 
-              title: "Latest"
-              topics: {}
-              url: "http://www.pewresearch.org/feed/"
-              is_preferred: false
-        -
-          name: "NY Times"
-          update_cycle: 360
-          weight: 1.0
-          topics: {}
-          feeds:
-            - 
-              title: "World - Politics"
-              topics: {}
-              url: "http://rss.nytimes.com/services/xml/rss/nyt/World.xml"
-              is_preferred: false
-            - 
-              title: "U.S. - Politics"
-              topics: {}
-              url: "http://www.nytimes.com/services/xml/rss/nyt/Politics.xml"
-              is_preferred: false
-            - 
-              title: "Business"
-              topics: {}
-              url: "http://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
-              is_preferred: false
-            - 
-              title: "Technology"
-              topics: {}
-              url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
-              is_preferred: false
-            - 
-              title: "Science"
-              topics: {}
-              url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
-              is_preferred: false
-            - 
-              title: "Health"
-              topics: {}
-              url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
-              is_preferred: false
-        - 
-          name: "Ars Technica"
-          update_cycle: 60
-          weight: 1.0
-          topics: {}
-          feeds:
-            - 
-              title: "All Latest"
-              topics: {}
-              url: "http://feeds.arstechnica.com/arstechnica/index"
-              is_preferred: false
+profile: 'sample'
+initial_wts: {}
+models: []
+feeds:
+- id: 0
+  name: "The Economist - Science and Technology"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/science-technology/rss.xml"
+- id: 1
+  name: "The Economist - Business and Finance"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/business-finance/rss.xml"
+- id: 2
+  name: "The Economist - Economics"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/economics/rss.xml"
+- id: 3
+  name: "The Economist - Culture"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/culture/rss.xml"
+- id: 4
+  name: "The Economist - US Politics"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/united-states/rss.xml"
+- id: 5
+  name: "The Economist - International Politics"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/international/rss.xml"
+- id: 6
+  name: "The Economist - Britain Politics"
+  is_oped_blog: false
+  url: "http://www.economist.com/sections/britain/rss.xml"
+- id: 7
+  name: "Associated Press - Top Headlines"
+  is_oped_blog: false
+  url: "http://hosted2.ap.org/atom/APDEFAULT/3d281c11a96b4ad082fe88aa0db04305"
+- id: 8
+  name: "Associated Press - US National"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/386c25518f464186bf7a2ac026580ce7"
+  is_oped_blog: false
+- id: 9
+  name: "Associated Press - World"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/cae69a7523db45408eeb2b3a98c0c9c5"
+  is_oped_blog: false
+- id: 10
+  name: "Associated Press - Politics"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/89ae8247abe8493fae24405546e9a1aa"
+  is_oped_blog: false
+- id: 11
+  name: "Associated Press - Business"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/f70471f764144b2fab526d39972d37b3"
+  is_oped_blog: false
+- id: 12
+  name: "Associated Press - Technology"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/495d344a0d10421e9baa8ee77029cfbd"
+  is_oped_blog: false
+- id: 13
+  name: "Associated Press - Sports"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/347875155d53465d95cec892aeb06419"
+  is_oped_blog: false
+- id: 14
+  name: "Associated Press - Entertainment"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/4e67281c3f754d0696fbfdee0f3f1469"
+  is_oped_blog: false
+- id: 15
+  name: "Associated Press - Health"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/bbd825583c8542898e6fa7d440b9febc"
+  is_oped_blog: false
+- id: 16
+  name: "Associated Press - Science"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/b2f0ca3a594644ee9e50a8ec4ce2d6de"
+  is_oped_blog: false
+- id: 17
+  name: "Associated Press - Strange"
+  url: "http://hosted2.ap.org/atom/APDEFAULT/aa9398e6757a46fa93ed5dea7bd3729e"
+  is_oped_blog: false
+- id: 18
+  name: "Wired - Top Stories"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/rss"
+- id: 19
+  name: "Wired - Business"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/category/business/latest/rss"
+- id: 20
+  name: "Wired - Culture"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/category/culture/latest/rss"
+- id: 21
+  name: "Wired - Gears"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/category/gear/latest/rss"
+- id: 22
+  name: "Wired - Science"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/category/science/latest/rss"
+- id: 23
+  name: "Wired - Security"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/category/security/latest/rss"
+- id: 24
+  name: "Wired - Transportation"
+  is_oped_blog: false
+  url: "https://www.wired.com/feed/category/transportation/latest/rss"
+- id: 25
+  name: "TechCrunch - News"
+  is_oped_blog: false
+  url: "http://feeds.feedburner.com/TechCrunch/"
+  is_oped_blog: false
+- id: 26
+  name: "Denver Post - Breaking News"
+  url: "http://feeds.denverpost.com/dp-news-breaking"
+  is_oped_blog: false
+- id: 27
+  name: "Denver Post - Top Stories"
+  url: "http://feeds.denverpost.com/dp-news-topstories"
+  is_oped_blog: false
+- id: 28
+  name: "Denver Post - Business"
+  url: ""
+  is_oped_blog: false
+- id: 29
+  name: "Pew Research Center - Latest"
+  url: "http://www.pewresearch.org/feed/"
+  is_oped_blog: false
+- id: 30
+  name: "NY Times - World - Politics"
+  url: "http://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+  is_oped_blog: false
+- id: 31
+  name: "NY Times - U.S. - Politics"
+  url: "http://www.nytimes.com/services/xml/rss/nyt/Politics.xml"
+  is_oped_blog: false
+- id: 32
+  name: "NY Times - Business"
+  url: "http://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+  is_oped_blog: false
+- id: 33
+  name: "NY Times - Technology"
+  url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+  is_oped_blog: false
+- id: 34
+  name: "NY Times - Science"
+  is_oped_blog: false
+  url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+- id: 35
+  name: "NY Times - Health"
+  is_oped_blog: false
+  url: "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+- id: 36
+  name: "Ars Technica - All Latest"
+  is_oped_blog: false
+  url: "http://feeds.arstechnica.com/arstechnica/index"
+- id: 37
+  name: The Atlantic - Business
+  is_oped_blog: false
+  url: http://feeds.feedburner.com/AtlanticBusinessChannel
+- id: 38
+  name: Entreprenuer
+  is_oped_blog: false
+  url: http://feeds.feedburner.com/entrepreneur/latest
+- id: 39
+  name: Harvard Business Review
+  url: http://feeds.harvardbusiness.org/harvardbusiness/
+  is_oped_blog: false
+- id: 40
+  name: Freakonomics
+  url: http://freakonomics.com/feed/
+  is_oped_blog: true
+- id: 41
+  name: The Business of Fashion
+  url: https://www.businessoffashion.com/syndication/feed
+  is_oped_blog: false
+- id: 42
+  name: The Big Picture
+  url: http://feeds.feedburner.com/TheBigPicture
+  is_oped_blog: true
+- id: 43
+  name: VentureBeat
+  url: http://feeds.feedburner.com/venturebeat
+  is_oped_blog: false
+- id: 44
+  name: Business Insider
+  url: http://feeds2.feedburner.com/businessinsider
+  is_oped_blog: false
+- id: 45
+  name: Calculated Risk
+  url: http://feeds.feedburner.com/CalculatedRisk
+  is_oped_blog: true
+- id: 46
+  name: Inc.com
+  url: http://feeds.inc.com/home/updates
+  is_oped_blog: true
+- id: 47
+  name: Andrew Chen
+  url: http://andrewchen.co/feed/
+  is_oped_blog: true
+- id: 48
+  name: The Huffington Post - Small Business
+  url: http://feeds.huffingtonpost.com/c/35496/f/677090/index.rss
+  is_oped_blog: false
+- id: 49
+  name: strategy+business - All Updates
+  url: http://feeds.feedburner.com/StrategyBusiness-AllUpdates
+  is_oped_blog: false
+- id: 50
+  name: Fortune
+  url: http://fortune.com/feed/
+  is_oped_blog: false
+- id: 51
+  name: The NonProfit Times
+  url: http://www.thenonprofittimes.com/feed/
+  is_oped_blog: false
+- id: 52
+  name: Hotel Business Magazine Breaking News
+  url: https://www.hotelbusiness.com/links/rss/hb_rss_01.php
+  is_oped_blog: false
+- id: 53
+  name: Smart Business Magazine
+  url: http://www.sbnonline.com/feed/
+  is_oped_blog: false
+- id: 54
+  name: Bloomberg
+  url: http://www.newslookup.com/rss/business/bloomberg.rss
+  is_oped_blog: false
+- id: 55
+  name: DataMiningBlog.com
+  url: http://feeds.feedburner.com/dataminingblog
+  is_oped_blog: true
+- id: 56
+  name: Geeking with Greg
+  url: http://feeds.feedburner.com/GeekingWithGreg
+  is_oped_blog: true
+- id: 57
+  name: No Free Hunch
+  url: http://blog.kaggle.com/feed/
+  is_oped_blog: true
+- id: 58
+  name: KDnuggets - Data Analytics
+  url: http://feeds.feedburner.com/kdnuggets-data-mining-analytics
+  is_oped_blog: true
+- id: 59
+  name: Big Data, Plainly Spoken (aka Numbers Rule Your World)
+  url: http://junkcharts.typepad.com/numbersruleyourworld/atom.xml
+  is_oped_blog: true
+- id: 60
+  name: The Guardian - Datablog
+  url: http://www.theguardian.com/news/datablog/rss
+  is_oped_blog: true
+- id: 61
+  name: Wall Street Journal - The Numbers
+  url: https://blogs.wsj.com/numbers/feed/
+  is_oped_blog: true
+- id: 62
+  name: Simply Statistics
+  url: https://simplystatistics.org/index.xml
+  is_oped_blog: true
+- id: 63
+  name: Revolution Analytics
+  url: http://blog.revolutionanalytics.com/atom.xml
+  is_oped_blog: true
+- id: 64
+  name: R-bloggers
+  url: http://feeds.feedburner.com/RBloggers
+  is_oped_blog: true
+- id: 65
+  name: Math Babe
+  url: https://mathbabe.org/feed/
+  is_oped_blog: true
+- id: 66
+  name: FastML
+  url: http://fastml.com/atom.xml
+  is_oped_blog: true
+- id: 67
+  name: Statistical Modeling, Causal Inference, and Social Science
+  url: http://feeds.feedburner.com/StatisticalModeling
+  is_oped_blog: true
+- id: 68
+  name: FiveThirtyEight
+  url: http://fivethirtyeight.com/feed/
+  is_oped_blog: true
+- id: 69
+  name: Data Science 101
+  url: http://101.datascience.community/feed/
+  is_oped_blog:
+- id: 70
+  name: Nuit Blanche
+  url: http://feeds.feedburner.com/blogspot/wCeDd
+  is_oped_blog:
+- id: 71
+  name: John D. Cook - The Endeavour
+  url: http://feeds.feedburner.com/theendeavour
+  is_oped_blog: true
+- id: 72
+  name: Machine Learning (Theory)
+  url: http://hunch.net/?feed=rss2
+  is_oped_blog: true
+- id: 73
+  name: SmartData Collective
+  url: http://feeds.feedburner.com/smartdatacollective_allposts
+  is_oped_blog: true

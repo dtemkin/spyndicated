@@ -1,8 +1,8 @@
 # D.Temkin : spyndicated.run (v0.3.1-1) - Copyright LGPLv3 (2018)
 import logging
-from getpass import getpass
 from queue import Queue
 
+from spyndicated.plugins import json
 from spyndicated.rss.base import Feed
 from spyndicated.usr import Profile
 
@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO)
 def _check_first_run():
     # Create Initial Profile
     pass
+
 
 
 class FeedQueue(Queue):
@@ -34,36 +35,22 @@ class FeedQueue(Queue):
                 self.task_done()
 
 
-feedqueue = FeedQueue()
-
-if __name__ == "__main__":
-    profile = Profile()
-    profile_name = input("Enter Profile Name: ")
-    if str(profile_name) == "test":
-        profile.load("test")
-        user_profile = profile.profile['test']
-
+q = []
+datahand = json.JSONHandler()
+datahand.select(identifiers="all")
+total_entries = 0
+for feed in Profile['feeds']:
+    print("Working on feed: %s" % feed['name'])
+    f = Feed(name=feed['name'], url=feed['url'])
+    print("Fetching Feed")
+    x = f.fetch()
+    print("Parsing Entries...")
+    entries = f.entries(x)
+    if entries is False:
+        print("None Found! Skipping...")
+        pass
     else:
-        tries = 3
-        if str(profile_name) not in profile.names:
-            raise ValueError("Invalid Profile Name")
-        else:
-            if tries >= 1:
-                try:
-                    profile.load(profile_name, getpass("Password: "))
-                    user_profile = profile.profile[profile_name]
-                except ValueError:
-                    tries -= 1
-                    print(ValueError("Invalid Password"))
-                else:
-                    tries -= 100
-            else:
-                raise ValueError("Number of tries exceeded!")
-    sources = user_profile["sources"]
-    for s in range(len(sources)):
-        for feed in sources[s]['feeds']:
-            f = Feed(source=sources[s], url=feed['url'], section=feed['title'])
-            feedqueue.put(f.fetch())
-
-    x = feedqueue.get()
-    print(x)
+        total_entries += len(entries)
+        print("Storing %s entries" % str(len(entries)))
+        datahand.insert_multi(records=[dict(entry) for entry in entries])
+print("Done. %d entries processed" % total_entries)

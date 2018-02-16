@@ -24,42 +24,46 @@ def _encrypt_key(uname, pwd):
             f.write(enc)
 
 
-class Profile(object):
+Profile = yaml.load(open(get_config("profiles.yaml"), mode='r'))
 
-    def __init__(self):
-        self.readable_file = open(get_config('profiles.yaml'), mode='r')
-        self.appendable_file = open(get_config("profiles.yaml"), mode='a')
-
-        self.profiles = yaml.load(self.readable_file)['profiles']
-        self.profile = {}
-
-    def load(self, username, password=None):
-        if password is None:
-            self.profile.update({username: self.profiles["('%s', null)" % username]})
-
-        else:
-            try:
-                pro = self.profiles["('%s', %s)" % (username, password)]
-            except ValueError:
-                raise ValueError("Invalid Profile Credentials")
-            else:
-                self.profile.update({username: pro})
-
-    def create(self):
-        pass
-
-    def edit(self, prefs):
-        pass
-
-    def _model_detect(self):
-        pass
-
-    def _set_preferences(self):
-        pass
-
-    def setup(self):
-        pass
-
-    @property
-    def names(self):
-        return [i[0] for i in self.profiles.keys()]
+#
+# class Profile(object):
+#
+#     def __init__(self):
+#         self.file = get_config("profiles.yaml")
+#         self.profiles = {}
+#
+#     def load(self):
+#         return yaml.load(open(self.file, mode='r'))
+#
+#     def create(self):
+#         pass
+#
+#     def add_feed(self, source, title, url, feed_update_cycle=1440):
+#         feeds = self.profiles['feeds']
+#         feed  = {"id": len(feeds), "source": source, "title": title,
+#                  "feed_update_cycle": feed_update_cycle,
+#                  "url": url, "last_updated": None,
+#                  "lda_topics_wts":{}}
+#         feeds.append(feed)
+#         self.profiles.update({"feeds": feeds})
+#
+#     def save(self):
+#         for profile in self.profiles:
+#             if profile['name'] == self.profile['name']:
+#                 self.profiles.remove(profile)
+#         self.profiles.append(self.profile)
+#         yaml.dump(self.profiles, open(self.file, mode='w'))
+#
+#
+#     def edit(self, prefs):
+#         pass
+#
+#     def _model_detect(self):
+#         pass
+#
+#     def _set_preferences(self):
+#         pass
+#
+#     def setup(self):
+#         pass

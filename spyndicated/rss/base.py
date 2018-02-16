@@ -4,28 +4,26 @@ import html
 import re
 from collections import UserDict
 from datetime import datetime, timedelta
-from queue import Queue
 from string import Template
 
 import feedparser
 from bs4 import BeautifulSoup as bsoup
 
-from spyndicated.usr import Profile
-from spyndicated.utils.textproc import tags_generator
+from spyndicated.utils.textproc import tags_generator, tokenizer
 
 
 class Entry(UserDict):
 
-    def __init__(self, source_name):
+    def __init__(self, feed_name):
         super().__init__()
         self.update({
-            "source_name": source_name,
-            "curr_rank": 1.0, "prev_rank": 1.0
+            "feed_name": feed_name
         })
 
     def _tags_parser(self, d):
+        kwds = tokenizer(d['summary'])
         if "tags" in d.keys():
-            return [tag["term"] for tag in d["tags"]]
+            dct = {"kwds": [k.text.lower() for k in kwds], "tags": [tag["term"] for tag in d["tags"]]}
         else:
             try:
                 s = self["summary"]
@@ -33,16 +31,22 @@ class Entry(UserDict):
                 raise KeyError("Must generate cleaned summary before parsing tags")
             else:
                 if s is None:
-                    return None
+                    return {"kwds": None, "tags": None}
                 else:
-                    return tags_generator(text_block=s)
+
+                    dct = {"kwds": [k.text.lower() for k in kwds], "tags": tags_generator(tokens=kwds)}
+        return dct
 
     def _clean_text(self, text):
 
         htmlpatt = re.compile('<.*?>')
+        text = text.lower().strip()
         text = re.sub(htmlpatt, " ", html.unescape(text))
         text = re.sub('\.\.\..*?', "", text)
-        text = re.sub('.?Read More\W', "", text)
+        text = re.sub('.?read more\W', "", text)
+        text = re.sub('continue reading', "", text)
+        text = re.sub("\'", "", text)
+
         return text
 
     def _build_template_string(self):
@@ -57,7 +61,7 @@ class Entry(UserDict):
         inline_img_patt = re.compile('(<img src).*?/>')
         match = re.search(inline_img_patt, d["summary"])
         if match:
-            s = bsoup(match.string).find("img").attrs["src"]
+            s = bsoup(match.string, 'html5lib').find("img").attrs["src"]
             if s.find("http:") < 0:
                 s = "http:" + s
             return s
@@ -153,9 +157,8 @@ class Entry(UserDict):
             })
 
             self.update({
-                "tags": self._tags_parser(d=raw),
-                "title": self._clean_text(text=raw["title"]), "selected_count": 0,
-                "skipped_count": 0, "template_string": self._build_template_string()
+                **self._tags_parser(d=raw),
+                "title": self._clean_text(text=raw["title"])
             })
 
             self._process_fields(d=raw, keys=["author", "url"], alts={"url": "link"},
@@ -172,13 +175,15 @@ class Entry(UserDict):
 
 class Feed(object):
 
-    def __init__(self, source, url, section):
-        self.source = source
+    def __init__(self, name, url):
+        self.source = name
         self.url = url
-        self.section = section
+
 
     def fetch(self):
-        parsed = feedparser.parse(self.url)
+        parsed = feedparser.parse(self.url, request_headers={
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"
+        })
         return parsed
 
     def info(self, parsed):
@@ -186,33 +191,12 @@ class Feed(object):
 
     def entries(self, parsed):
         if "entries" in parsed.keys():
+            _entry = Entry(feed_name=self.source)
 
-            _entry = Entry(source_name=self.source)
-            return [_entry.restruct(ent) for ent in parsed["entries"]]
-        else:
-            print("No entries found.")
-            pass
-
-
-class Feeds(object):
-
-    def __init__(self, profile):
-        if isinstance(profile, Profile):
-            self.feeds = profile['feeds']
-        else:
-            raise TypeError("profile must be a valid user profile instance")
-
-        self.threads = []
-        self.page_queue = Queue()
-
-    def downloader(self):
-        pass
-
-    def enqueue(self, feed_object):
-        pass
-
-    def process(self):
-        pass
-
-    def paginate(self, page_size):
-        pass
+            try:
+                formatted = [dict(_entry.restruct(ent)) for ent in parsed["entries"]]
+            except Exception as err:
+                print(err)
+                return False
+            else:
+                return formatted

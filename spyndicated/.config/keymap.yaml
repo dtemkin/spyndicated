@@ -1,0 +1,12 @@
+
+keys:
+  open: ' '
+  prev_item: KEY_LEFT
+  next_item: KEY_RIGHT
+  update_feed: U
+  scroll_up: KEY_UP
+  scroll_down: KEY_DOWN
+  toggle_read: R
+  toggle_star: S
+  open_in_browser: O
+  quit: Q

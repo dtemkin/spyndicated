@@ -18,4 +18,6 @@ def get_data(filename):
     if os.path.isfile(filepath) or os.path.isdir(filepath):
         return filepath
     else:
-        raise FileNotFoundError("DATA FILE ERROR! File/Subdirectory not found.")
+        with open(filepath, mode='w') as f:
+            f.close()
+        return filepath

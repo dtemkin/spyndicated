@@ -1,0 +1,6 @@
+page_results: 10
+scroll_lines: 5
+ascii_images: true
+image_blocks: true
+buffer_lines: 1000
+unread_count: true

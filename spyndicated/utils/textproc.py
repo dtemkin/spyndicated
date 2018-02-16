@@ -9,7 +9,6 @@ from gensim.corpora import Dictionary
 from gensim.models import LdaModel
 
 from spyndicated import get_config
-from spyndicated.plugins import json as json_plugin
 from spyndicated.utils.utils import os, find_next_filename
 
 nlp = spacy.load("en")
@@ -22,16 +21,18 @@ def stops_list(file="stopwords.lst"):
     return stops_list
 
 
-def tags_generator(text_block, ntags=10, **kwargs):
-    stops = kwargs.get('stopwords', stops_list())
-    base_tokens = tokenizer(text_block, stops=stops)
-    tokens = [x.text.lower().capitalize() for x in base_tokens if x.tag_ in ["NNP", "NN"]]
+def tags_generator(tokens, ntags=10, **kwargs):
+    inclfreq = kwargs.get("incl_freq", True)
+    tokens = [x.text.lower().capitalize() for x in tokens if x.tag_ in ["NNP", "NN"]]
     cnt = Counter(tokens)
 
-    return [x[0] for x in cnt.most_common(n=ntags)]
+    if inclfreq is True:
+        return [(x[0], x[1]) for x in cnt.most_common(n=ntags)]
+    else:
+        return [x[0] for x in cnt.most_common(ntags)]
 
 
-def tokenizer(text_block, stops):
+def tokenizer(text_block, stops=[s.lower() for s in stops_list()]):
     doc = nlp(text_block)
     tokens = [x for x in doc if x.text.lower() not in stops]
     return tokens
@@ -72,40 +73,41 @@ class TopicsCorpus(object):
                         docs.remove(item_val)
                     else:
                         pass
-                self.dictionary.add_documents(documents=docs)
+                self.dictionary.add_documents(documents=[doc2bow(d) for d in docs])
             elif dups == 'ignore':
-                self.dictionary.add_documents(documents=docs)
+                self.dictionary.add_documents(documents=[doc2bow(d) for d in docs])
             else:
                 raise ValueError("invalid 'dups' argument value. must be 'skip' or 'ignore'")
 
             if save is True:
                 if overwrite is True:
-                    self.dictionary.save_as_text(open(self.file, mode='w'))
+                    self.dictionary.save_as_text(open(self.file, mode="w"))
+
                     print("Updated Corpus saved to %s" % self.file)
                 elif overwrite is False:
                     d, f = os.path.split(self.file)
                     fx = find_next_filename(d, f)
-                    self.dictionary.save_as_text(open(fx, mode='w'))
+                    self.dictionary.save_as_text(open(fx, mode="w"))
                     print("Updated Corpus saved to %s" % fx)
                 else:
                     raise TypeError("overwrite argument must be boolean")
 
     def build(self, docs):
-        self.dictionary = Dictionary(documents=docs)
-        self.dictionary.save_as_text(fname=open(self.file, mode='w'))
+        self.dictionary = Dictionary(documents=[doc2bow(d) for d in docs])
+        print(self.dictionary)
+        # self.dictionary.save_as_text(fname=open(self.file, mode="w"))
         print("Corpus saved to %s" % self.file)
 
 
 class TopicModel(object):
 
-    def __init__(self, source, corpus):
-        self.existing_docs = json_plugin.JSONHandler().select(identifiers=dict(source_name=source))
+    def __init__(self, corpus):
         self._model = None
-        self.source = source
-        if isinstance(corpus, TopicModel):
+
+        if isinstance(corpus, TopicsCorpus):
             self.corpus = corpus
         else:
-            raise TypeError("Must be a valid TopicCorpus instance")
+            raise TypeError("Must be a valid TopicsCorpus instance")
 
     @property
     def model(self):
@@ -146,21 +148,22 @@ class TopicModel(object):
 
             return self.model[bow]
 
-    def get_document_topics(self, doc):
+    def get_document_topics(self, doc, *args, **kwargs):
         if self.model is None:
             raise NotImplementedError("Must first initialize model using load or create method")
-
+        else:
+            return self.model.get_document_topics(bow=doc2bow(doc=doc), *args, **kwargs)
     def get_term_topics(self, term_id, *args, **kwargs):
         if self.model is None:
             raise NotImplementedError("Must first initialize model using load or create method")
         else:
-            self.model.get_term_topics(word_id=term_id, *args, **kwargs)
+            return self.model.get_term_topics(word_id=term_id, *args, **kwargs)
 
     def get_topic_terms(self, topic_id, top_n=20):
         if self.model is None:
             raise NotImplementedError("Must first initialize model using load or create method")
         else:
-            self.model.get_topic_terms(topicid=topic_id, topn=top_n)
+            return self.model.get_topic_terms(topicid=topic_id, topn=top_n)
 
     def get_topics(self):
         if self.model is None:
@@ -172,9 +175,9 @@ class TopicModel(object):
         if self.model is None:
             raise NotImplementedError("Must first initialize model using load or create method")
         else:
-            self.model.inference(chunk=docpart, collect_sstats=sstats)
+            return self.model.inference(chunk=docpart, collect_sstats=sstats)
 
-    def reform(self, chunk, mod_state=None):
+    def refit(self, chunk, mod_state=None):
         if self.model is None:
             raise NotImplementedError("Must first initialize model using load or create method")
         else:
