@@ -20,10 +20,10 @@ class Entry(UserDict):
             "feed_name": feed_name
         })
 
-    def _tags_parser(self, d):
-        kwds = tokenizer(d['summary'])
-        if "tags" in d.keys():
-            dct = {"kwds": [k.text.lower() for k in kwds], "tags": [tag["term"] for tag in d["tags"]]}
+    def _tags_parser(self, clean_summary, raw):
+        kwds = tokenizer(clean_summary)
+        if "tags" in raw.keys():
+            dct = {"kwds": [k.text.lower() for k in kwds], "tags": [tag["term"] for tag in raw["tags"]]}
         else:
             try:
                 s = self["summary"]
@@ -31,9 +31,8 @@ class Entry(UserDict):
                 raise KeyError("Must generate cleaned summary before parsing tags")
             else:
                 if s is None:
-                    return {"kwds": None, "tags": None}
+                    return {"kwds": [], "tags": []}
                 else:
-
                     dct = {"kwds": [k.text.lower() for k in kwds], "tags": tags_generator(tokens=kwds)}
         return dct
 
@@ -46,7 +45,13 @@ class Entry(UserDict):
         text = re.sub('.?read more\W', "", text)
         text = re.sub('continue reading', "", text)
         text = re.sub("\'", "", text)
-
+        text = re.sub("\'s", "", text)
+        text = text.replace('\u2019', "")
+        text = text.replace('\u201c', "")
+        text = text.replace('\u201d', "")
+        text = text.replace('\u2014', '')
+        text = text.replace('\u2026', '')
+        text = text.replace('\u00a0', '')
         return text
 
     def _build_template_string(self):
@@ -153,11 +158,12 @@ class Entry(UserDict):
         try:
             self.update({
                 "img_loc": Entry._locate_image(d=raw), "pub_datetime": Entry._detect_date(d=raw),
-                "summary": self._clean_text(text=raw["summary"].strip())
+                "summary": self._clean_text(text=raw["summary"]).strip()
             })
+            d = self._tags_parser(clean_summary=self['summary'], raw=raw)
 
+            self.update(d)
             self.update({
-                **self._tags_parser(d=raw),
                 "title": self._clean_text(text=raw["title"])
             })
 

@@ -21,13 +21,12 @@ def stops_list(file="stopwords.lst"):
     return stops_list
 
 
-def tags_generator(tokens, ntags=10, **kwargs):
+def tags_generator(tokens, ntags=5, **kwargs):
     inclfreq = kwargs.get("incl_freq", True)
     tokens = [x.text.lower().capitalize() for x in tokens if x.tag_ in ["NNP", "NN"]]
     cnt = Counter(tokens)
-
     if inclfreq is True:
-        return [(x[0], x[1]) for x in cnt.most_common(n=ntags)]
+        return cnt.most_common(n=ntags)
     else:
         return [x[0] for x in cnt.most_common(ntags)]
 

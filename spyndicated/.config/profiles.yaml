@@ -268,34 +268,30 @@ feeds:
   url: https://mathbabe.org/feed/
   is_oped_blog: true
 - id: 66
-  name: FastML
-  url: http://fastml.com/atom.xml
-  is_oped_blog: true
-- id: 67
   name: Statistical Modeling, Causal Inference, and Social Science
   url: http://feeds.feedburner.com/StatisticalModeling
   is_oped_blog: true
-- id: 68
+- id: 67
   name: FiveThirtyEight
   url: http://fivethirtyeight.com/feed/
   is_oped_blog: true
-- id: 69
+- id: 68
   name: Data Science 101
   url: http://101.datascience.community/feed/
   is_oped_blog:
-- id: 70
+- id: 69
   name: Nuit Blanche
   url: http://feeds.feedburner.com/blogspot/wCeDd
   is_oped_blog:
-- id: 71
+- id: 70
   name: John D. Cook - The Endeavour
   url: http://feeds.feedburner.com/theendeavour
   is_oped_blog: true
-- id: 72
+- id: 71
   name: Machine Learning (Theory)
   url: http://hunch.net/?feed=rss2
   is_oped_blog: true
-- id: 73
+- id: 72
   name: SmartData Collective
   url: http://feeds.feedburner.com/smartdatacollective_allposts
   is_oped_blog: true
