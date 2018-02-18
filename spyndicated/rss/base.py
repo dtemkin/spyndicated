@@ -14,10 +14,11 @@ from spyndicated.utils.textproc import tags_generator, tokenizer
 
 class Entry(UserDict):
 
-    def __init__(self, feed_name):
+    def __init__(self, feed_name, is_blog):
         super().__init__()
         self.update({
-            "feed_name": feed_name
+            "feed_name": feed_name,
+            "is_blog": is_blog
         })
 
     def _tags_parser(self, clean_summary, raw):
@@ -181,9 +182,10 @@ class Entry(UserDict):
 
 class Feed(object):
 
-    def __init__(self, name, url):
+    def __init__(self, name, url, is_blog):
         self.source = name
         self.url = url
+        self.is_blog = is_blog
 
 
     def fetch(self):
@@ -197,7 +199,7 @@ class Feed(object):
 
     def entries(self, parsed):
         if "entries" in parsed.keys():
-            _entry = Entry(feed_name=self.source)
+            _entry = Entry(feed_name=self.source, is_blog=self.is_blog)
 
             try:
                 formatted = [dict(_entry.restruct(ent)) for ent in parsed["entries"]]
