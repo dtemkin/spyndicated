@@ -591,6 +591,7 @@ zero
 "
 -
 's
+\s
 \s\s
 \t
 \s\s\s\s
@@ -602,3 +603,6 @@ zero
 \u201c
 \u2019s
 \u2019
+\ufeff
+with
+one

@@ -41,6 +41,7 @@ class Entry(UserDict):
 
         htmlpatt = re.compile('<.*?>')
         text = text.lower().strip()
+        text = re.sub(" +", " ", text)
         text = re.sub(htmlpatt, " ", html.unescape(text))
         text = re.sub('\.\.\..*?', "", text)
         text = re.sub('.?read more\W', "", text)
