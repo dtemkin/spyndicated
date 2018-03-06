@@ -1,6 +1,6 @@
 import os
 
-__all__ = ['usr', 'run', 'tests', 'utils', 'rss', 'plugins', 'gui']
+__all__ = ['usr', 'run', 'utils', 'rss', 'plugins', 'gui', 'data', 'test', 'exception']
 
 
 def get_config(filename):

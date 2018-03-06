@@ -202,7 +202,7 @@ feeds:
 - id: 49
   name: strategy+business - All Updates
   url: http://feeds.feedburner.com/StrategyBusiness-AllUpdates
-  is_oped_blog: false
+  is_oped_blog: true
 - id: 50
   name: Fortune
   url: http://fortune.com/feed/
@@ -295,3 +295,87 @@ feeds:
   name: SmartData Collective
   url: http://feeds.feedburner.com/smartdatacollective_allposts
   is_oped_blog: true
+- id: 73
+  name: CNN - Top Stories
+  url: http://rss.cnn.com/rss/cnn_topstories.rss
+  is_oped_blog: false
+- id: 74
+  name: NY Times - Homepage
+  url: http://feeds.nytimes.com/nyt/rss/HomePage
+  is_oped_blog: false
+- id: 75
+  name: Washington Post - Highlights
+  url: http://www.washingtonpost.com/rss/
+  is_oped_blog: false
+- id: 76
+  name: USA Today - Top Stories
+  url: http://rssfeeds.usatoday.com/usatoday-NewsTopStories
+  is_oped_blog: false
+- id: 77
+  name: NPR - News
+  url: http://www.npr.org/rss/rss.php?id=1001
+  is_oped_blog: false
+- id: 78
+  name: Reuters - Top News
+  url: http://feeds.reuters.com/reuters/topNews
+  is_oped_blog: false
+- id: 79
+  name: NY Times - Sports
+  url: http://feeds1.nytimes.com/nyt/rss/Sports
+  is_oped_blog: false
+- id: 80
+  name: Sports Illustrated
+  url: http://www.si.com/rss/si_topstories.rss
+  is_oped_blog: false
+- id: 81
+  name: NPR - Arts & Culture
+  url: http://www.npr.org/rss/rss.php?id=1008
+  is_oped_blog: false
+- id: 82
+  name: NPR - Movies
+  url: http://www.npr.org/rss/rss.php?id=1045
+  is_oped_blog: false
+- id: 83
+  name: Reuters - World News
+  url: http://feeds.reuters.com/Reuters/worldNews
+  is_oped_blog: false 
+- id: 84
+  name: CBN - World News
+  url: http://www.cbn.com/cbnnews/world/feed/
+  is_oped_blog: false
+- id: 85 
+  name: BBC - World News
+  url: http://feeds.bbci.co.uk/news/world/rss.xml
+  is_oped_blog: false
+- id: 86
+  name: Yahoo - US News
+  url: http://news.yahoo.com/rss/
+  is_oped_blog: false 
+- id: 87 
+  name: Reuters - Arts & Culture
+  url: http://feeds.reuters.com/news/artsculture
+  is_oped_blog: false
+- id: 88
+  name: Reuters - Politics
+  url: http://feeds.reuters.com/Reuters/PoliticsNews
+  is_oped_blog: false
+- id: 89
+  name: Reuters - Sports
+  url: http://feeds.reuters.com/reuters/sportsNews
+  is_oped_blog: false
+- id: 90
+  name: Reuters - Money
+  url: http://feeds.reuters.com/news/wealth
+  is_oped_blog: false
+- id: 91
+  name: Reuters - Entertainment
+  url: http://feeds.reuters.com/reuters/entertainment
+  is_oped_blog: false
+- id: 92 
+  name: Reuters - Health
+  url: http://feeds.reuters.com/reuters/healthNews
+  is_oped_blog: false 
+- id: 93
+  name: Reuters - People
+  url: http://feeds.reuters.com/reuters/peopleNews
+  is_oped_blog: false
