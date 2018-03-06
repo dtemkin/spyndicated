@@ -3,22 +3,11 @@
 import json
 import os
 import re
-import sys
-import warnings
 from collections import Counter
 from string import punctuation, digits, ascii_lowercase
 
 import numpy as np
 from nltk.stem.snowball import SnowballStemmer
-
-if not sys.warnoptions:
-    warnings.simplefilter("ignore")
-
-from plotly.offline import init_notebook_mode, plot, iplot
-from plotly import graph_objs as go
-import pyLDAvis.gensim as ldaviz
-
-plotting_pkgs = [init_notebook_mode, plot, iplot, go, ldaviz]
 
 
 class Data(object):
@@ -157,3 +146,55 @@ class TestingSet(object):
 
     def __len__(self):
         return len(self.__iter__())
+
+#
+# blogkwds = []
+# blogtags = []
+# blogtopics = []
+# newskwds = []
+# newstags = []
+# newstopics = []
+#
+# for j in range(len(testing_entries)):
+#     ent = testing_entries[j]
+#     for tag in ent['tags']:
+#         tt = []
+#         if type(tag) is list:
+#             tt.append(tag[0])
+#         else:
+#             tt.append(tag)
+#         if len(tt) > 0:
+#             ent.update({"tags": tt})
+#         else:
+#             pass
+#
+#     if ent['is_blog'] == 1:
+#         blogkwds.extend([i for i in ent['kwds']])
+#         blogtags.extend([i.split(",")[0] for i in ent['tags']])
+#         blogtopics.extend([i[0] for i in ent['topics']])
+#     else:
+#         newskwds.extend([i for i in ent['kwds']])
+#         newstags.extend([i for i in ent['tags']])
+#         newstopics.extend([i[0] for i in ent['topics']])
+
+
+# kwd_layout = go.Layout(barmode='overlay', title='Keyword Probabilities by Source Type')
+# BlogKeywords = go.Histogram(x=blogkwds, name='Blog Keywords', histnorm='probability', opacity=0.75)
+# NewsKeywords = go.Histogram(x=newskwds, name='News Keywords', histnorm='probability', opacity=0.75)
+# kwd_traces = [BlogKeywords, NewsKeywords]
+# kwd_fig = go.Figure(data=kwd_traces, layout=kwd_layout)
+# iplot(kwd_fig)
+#
+# tag_layout = go.Layout(barmode='overlay', title='Tag Frequencies by Source Type')
+# BlogTags = go.Histogram(x=blogtags, name='Blog Tags', opacity=0.75)
+# NewsTags = go.Histogram(x=newstags, name='News Tags', opacity=0.75)
+# tag_traces = [BlogTags, NewsTags]
+# tag_fig = go.Figure(data=tag_traces, layout=tag_layout)
+# iplot(tag_fig)
+#
+# topics_layout = go.Layout(barmode='overlay', title='Topic Probabilities by Source Type')
+# BlogTopics = go.Histogram(x=blogtopics, name='Blog Topics', histnorm='probability', opacity=0.75)
+# NewsTopics = go.Histogram(x=newstopics, name='News Topics', histnorm='probability', opacity=0.75)
+# topics_traces = [BlogTopics, NewsTopics]
+# topics_fig = go.Figure(data=topics_traces, layout=topics_layout)
+# iplot(topics_fig)

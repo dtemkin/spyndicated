@@ -117,7 +117,7 @@ feeds:
   is_oped_blog: false
 - id: 28
   name: "Denver Post - Business"
-  url: ""
+  url: "http://feeds.denverpost.com/dp-business"
   is_oped_blog: false
 - id: 29
   name: "Pew Research Center - Latest"
@@ -379,3 +379,44 @@ feeds:
   name: Reuters - People
   url: http://feeds.reuters.com/reuters/peopleNews
   is_oped_blog: false
+- id: 94
+  name: Politico - Josh Gerstein
+  url: http://www.politico.com/rss/undertheradar_full.xml
+  is_oped_blog: true
+- id: 95
+  name: Politico - Congress
+  url: http://www.politico.com/rss/congress.xml
+  is_oped_blog: false
+- id: 96
+  name: Politico - Health Care
+  url: http://www.politico.com/rss/healthcare.xml
+  is_oped_blog: false
+- id: 97
+  name: Politico - Defense
+  url: http://www.politico.com/rss/defense.xml
+  is_oped_blog: false
+- id: 98
+  name: Politico - Politics
+  url: http://www.politico.com/rss/politics08.xml
+  is_oped_blog: false
+- id: 99
+  name: CNN - World
+  url: http://rss.cnn.com/rss/cnn_world.rss
+  is_oped_blog: false
+- id: 100
+  name: CNN - Politics
+  url: http://rss.cnn.com/rss/cnn_allpolitics.rss
+  is_oped_blog: false
+- id: 101
+  name: CNN - Entertainment
+  url: http://rss.cnn.com/rss/cnn_showbiz.rss
+  is_oped_blog: false
+- id: 102
+  name: Rolling Stone - All News
+  url: https://www.rollingstone.com/rss
+  is_oped_blog: false
+- id: 103
+  name: Rolling Stone - Politics
+  url: https://www.rollingstone.com/politics/rss
+  is_oped_blog: ture
+
