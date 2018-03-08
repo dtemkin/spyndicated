@@ -154,7 +154,7 @@ class TestingSet(AbstractSet):
             return set(np.random.choice(a=list(self.available_ids), size=self.size,
                                         replace=self.replace))
 
-#
+
 # blogkwds = []
 # blogtags = []
 # blogtopics = []
