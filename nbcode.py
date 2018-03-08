@@ -3,6 +3,7 @@
 import json
 import os
 import re
+from abc import ABCMeta, abstractmethod
 from collections import Counter
 from string import punctuation, digits, ascii_lowercase
 
@@ -95,20 +96,29 @@ class Data(object):
         return _allkwds, _dockwds
 
 
-class TrainingSet(object):
+class AbstractSet(metaclass=ABCMeta):
 
     def __init__(self, data, max_size, w_replacement=False):
         self.data = data
         self.size = max_size
         self.replace = w_replacement
 
+    @abstractmethod
     @property
     def ids(self):
-        return set(np.random.choice(a=list(self.data.ids), size=self.size, replace=self.replace))
+        raise NotImplementedError()
 
     @property
     def keywords(self):
         return self.data.keyword_parser(lst=self.__iter__())
+
+    @property
+    def blog_keywords(self):
+        return self.data.keyword_parser(lst=[i for i in self.__iter__() if i['is_blog'] == 1])
+
+    @property
+    def news_keywords(self):
+        return self.data.keyword_parser(lst=[i for i in self.__iter__() if i['is_blog'] == 0])
 
     def __iter__(self):
         return [self.data.entries[i] for i in self.ids]
@@ -117,13 +127,20 @@ class TrainingSet(object):
         return len(self.__iter__())
 
 
-class TestingSet(object):
+class TrainingSet(AbstractSet):
+
+    def __init__(self, data, max_size, w_replacement=False):
+        super().__init__(data=data, max_size=max_size, w_replacement=w_replacement)
+
+    @property
+    def ids(self):
+        return set(np.random.choice(a=list(self.data.ids), size=self.size, replace=self.replace))
+
+
+class TestingSet(AbstractSet):
 
     def __init__(self, data, max_size, exclude_ids=None, w_replacement=False):
-        self.data = data
-        self.size = max_size
-        self.replace = w_replacement
-
+        super().__init__(data=data, max_size=max_size, w_replacement=w_replacement)
         if exclude_ids is None:
             self.available_ids = self.data.ids
         else:
@@ -136,16 +153,6 @@ class TestingSet(object):
         else:
             return set(np.random.choice(a=list(self.available_ids), size=self.size,
                                         replace=self.replace))
-
-    @property
-    def keywords(self):
-        return self.data.keyword_parser(lst=self.__iter__())
-
-    def __iter__(self):
-        return [self.data.entries[j] for j in self.ids]
-
-    def __len__(self):
-        return len(self.__iter__())
 
 #
 # blogkwds = []
