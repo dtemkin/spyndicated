@@ -3,7 +3,7 @@
 import json
 import os
 import re
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 from collections import Counter
 from string import punctuation, digits, ascii_lowercase
 
@@ -13,10 +13,13 @@ from nltk.stem.snowball import SnowballStemmer
 
 class Data(object):
 
-    def __init__(self, file=os.path.join(os.getcwd(), 'spyndicated',
-                                         '.data', 'master.json')):
+    def __init__(self, lst=None):
+        file = os.path.join(os.getcwd(), 'spyndicated', '.data', 'master.json')
+        if lst is None:
+            self.initlist = self.read_data(datafile=file)
+        else:
+            self.initlist = lst
 
-        self.initlist = self.read_data(datafile=file)
         self._stops = self.read_stopwords()
         self._allkeywords, self._dockwds = self.keyword_parser(lst=self.initlist)
 
@@ -71,8 +74,57 @@ class Data(object):
             lines = [json.loads(l) for l in f.readlines()]
             return lines
 
+    def keyword_cleaner(self, kwds):
+        puncts = list(punctuation)
+        stemmer = SnowballStemmer("english")
+        clean = []
+        for k in range(len(kwds)):
+            if (kwds[k].isdigit() and len(kwds[k]) != 4):
+                print("Removing digit that is not length 4 (i.e. years)")
+                print(kwds[k])
+                pass
+
+            elif kwds[k].find("\n") > -1:
+                print("Removing keyword containing newline character")
+                print(kwds[k])
+                pass
+
+            elif len(kwds[k]) < 3:
+                print("Removing keyword that is less than 3 characters")
+                print(kwds[k])
+                pass
+
+            elif kwds[k].find("http") > -1:
+                print("Removing keyword containing 'http'")
+                print(kwds[k])
+                pass
+
+            elif kwds[k].find("(") > -1:
+                print("Removing keyword containing '('")
+                print(kwds[k])
+                pass
+
+            elif kwds[k] in self._stops:
+                print("Removing keyword found in stopwords list")
+                print(kwds[k])
+                pass
+
+            elif any((p for p in puncts if kwds[k].find(p) > -1)):
+                print("Removing key containing any punctuation mark.")
+                print(kwds[k])
+                pass
+            else:
+                clean.append(kwds[k])
+
+        print("\nnumber of kwds (after cleaning): %s\n" % str(len(clean)))
+        print("Keywords (after cleaning): \n")
+        print(clean)
+        print("\nApplying Stemmer\n")
+        return [stemmer.stem(x) for x in clean]
+
+
     def keyword_parser(self, lst, **kwargs):
-        stops = kwargs.get('stops', self.read_stopwords())
+        stops = kwargs.get('stops', self._stops)
         _allkwds = []
         _dockwds = []
         puncts = list(punctuation)
@@ -96,51 +148,51 @@ class Data(object):
         return _allkwds, _dockwds
 
 
-class AbstractSet(metaclass=ABCMeta):
+class AbstractSet(object):
 
-    def __init__(self, data, max_size, w_replacement=False):
+    def __init__(self, data, max_size):
+        assert (isinstance(data, Data) is True), "Oops"
         self.data = data
-        self.size = max_size
-        self.replace = w_replacement
+        if type(max_size) is float:
+            self.size = int(len(self.data.ids) * max_size)
+        elif type(max_size) is int:
+            if max_size > .8 * len(self.data.ids):
+                print("WARNING, using over 80% of the original data set as training data.")
 
-    @abstractmethod
+            self.size = int(len(self.data.ids) * max_size)
+
     @property
+    @abstractmethod
     def ids(self):
         raise NotImplementedError()
 
     @property
+    def keywords_as_docs(self):
+        return self.data.keyword_parser(lst=self.entries)[1]
+
+    @property
     def keywords(self):
-        return self.data.keyword_parser(lst=self.__iter__())
+        return self.data.keyword_parser(lst=self.entries)[0]
 
     @property
-    def blog_keywords(self):
-        return self.data.keyword_parser(lst=[i for i in self.__iter__() if i['is_blog'] == 1])
-
-    @property
-    def news_keywords(self):
-        return self.data.keyword_parser(lst=[i for i in self.__iter__() if i['is_blog'] == 0])
-
-    def __iter__(self):
+    def entries(self):
         return [self.data.entries[i] for i in self.ids]
-
-    def __len__(self):
-        return len(self.__iter__())
 
 
 class TrainingSet(AbstractSet):
 
-    def __init__(self, data, max_size, w_replacement=False):
-        super().__init__(data=data, max_size=max_size, w_replacement=w_replacement)
+    def __init__(self, data, max_size):
+        super().__init__(data=data, max_size=max_size)
 
     @property
     def ids(self):
-        return set(np.random.choice(a=list(self.data.ids), size=self.size, replace=self.replace))
+        return set(np.random.choice(a=list(self.data.ids), size=self.size, replace=False))
 
 
 class TestingSet(AbstractSet):
 
-    def __init__(self, data, max_size, exclude_ids=None, w_replacement=False):
-        super().__init__(data=data, max_size=max_size, w_replacement=w_replacement)
+    def __init__(self, data, max_size, exclude_ids=None):
+        super().__init__(data=data, max_size=max_size)
         if exclude_ids is None:
             self.available_ids = self.data.ids
         else:
@@ -151,57 +203,22 @@ class TestingSet(AbstractSet):
         if self.size == 'all':
             return self.available_ids
         else:
-            return set(np.random.choice(a=list(self.available_ids), size=self.size,
-                                        replace=self.replace))
+            return set(np.random.choice(a=list(self.available_ids), size=self.size, replace=False))
 
 
-# blogkwds = []
-# blogtags = []
-# blogtopics = []
-# newskwds = []
-# newstags = []
-# newstopics = []
-#
-# for j in range(len(testing_entries)):
-#     ent = testing_entries[j]
-#     for tag in ent['tags']:
-#         tt = []
-#         if type(tag) is list:
-#             tt.append(tag[0])
-#         else:
-#             tt.append(tag)
-#         if len(tt) > 0:
-#             ent.update({"tags": tt})
-#         else:
-#             pass
-#
-#     if ent['is_blog'] == 1:
-#         blogkwds.extend([i for i in ent['kwds']])
-#         blogtags.extend([i.split(",")[0] for i in ent['tags']])
-#         blogtopics.extend([i[0] for i in ent['topics']])
-#     else:
-#         newskwds.extend([i for i in ent['kwds']])
-#         newstags.extend([i for i in ent['tags']])
-#         newstopics.extend([i[0] for i in ent['topics']])
+class ValidationSet(AbstractSet):
 
+    def __init__(self, data, max_size, exclude_ids=None):
+        super().__init__(data=data, max_size=max_size)
 
-# kwd_layout = go.Layout(barmode='overlay', title='Keyword Probabilities by Source Type')
-# BlogKeywords = go.Histogram(x=blogkwds, name='Blog Keywords', histnorm='probability', opacity=0.75)
-# NewsKeywords = go.Histogram(x=newskwds, name='News Keywords', histnorm='probability', opacity=0.75)
-# kwd_traces = [BlogKeywords, NewsKeywords]
-# kwd_fig = go.Figure(data=kwd_traces, layout=kwd_layout)
-# iplot(kwd_fig)
-#
-# tag_layout = go.Layout(barmode='overlay', title='Tag Frequencies by Source Type')
-# BlogTags = go.Histogram(x=blogtags, name='Blog Tags', opacity=0.75)
-# NewsTags = go.Histogram(x=newstags, name='News Tags', opacity=0.75)
-# tag_traces = [BlogTags, NewsTags]
-# tag_fig = go.Figure(data=tag_traces, layout=tag_layout)
-# iplot(tag_fig)
-#
-# topics_layout = go.Layout(barmode='overlay', title='Topic Probabilities by Source Type')
-# BlogTopics = go.Histogram(x=blogtopics, name='Blog Topics', histnorm='probability', opacity=0.75)
-# NewsTopics = go.Histogram(x=newstopics, name='News Topics', histnorm='probability', opacity=0.75)
-# topics_traces = [BlogTopics, NewsTopics]
-# topics_fig = go.Figure(data=topics_traces, layout=topics_layout)
-# iplot(topics_fig)
+        if exclude_ids is None:
+            self.available_ids = self.data.ids
+        else:
+            self.available_ids = self.data.ids - exclude_ids
+
+    @property
+    def ids(self):
+        if self.size == 'all':
+            return self.available_ids
+        else:
+            return set(np.random.choice(a=list(self.available_ids), size=self.size, replace=False))
