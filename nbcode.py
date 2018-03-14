@@ -67,6 +67,7 @@ class Data(object):
         file = open(os.path.join(os.getcwd(), 'spyndicated', '.config', 'stopwords.lst'))
         stops_list = [s.lower().rstrip("\n") for s in file.readlines()]
         stops_list.extend(list("".join([punctuation, digits, ascii_lowercase])))
+
         return stops_list
 
     def read_data(self, datafile):
@@ -104,7 +105,7 @@ class Data(object):
                 print(kwds[k])
                 pass
 
-            elif kwds[k] in self._stops:
+            elif kwds[k] in self.stopwords:
                 print("Removing keyword found in stopwords list")
                 print(kwds[k])
                 pass
@@ -124,7 +125,8 @@ class Data(object):
 
 
     def keyword_parser(self, lst, **kwargs):
-        stops = kwargs.get('stops', self._stops)
+        stops = kwargs.get('stops', self.read_stopwords())
+
         _allkwds = []
         _dockwds = []
         puncts = list(punctuation)
@@ -222,3 +224,56 @@ class ValidationSet(AbstractSet):
             return self.available_ids
         else:
             return set(np.random.choice(a=list(self.available_ids), size=self.size, replace=False))
+
+
+def generate_nodes_links(data):
+    kwdsx = data.keywords_as_docs
+    docs = [(kwdsx[d], data.entries[d]['feed_name']) for d in range(len(data.entries))]
+
+    feeds = {}
+
+    for d in docs:
+        feed_kwds = [kwds for kwds in d[0]]
+        if d[1] in feeds.keys():
+            feeds[d[1]]['kwds'].update(set(feed_kwds))
+        else:
+            feeds.update({d[1]: {"kwds": set(feed_kwds), "links": {}}})
+    return feeds
+
+
+def find_links(data, tags, feed, min_matches=60):
+    for x in data:
+        n = 0
+        if x == feed:
+            pass
+        else:
+            for tag in tags:
+                if tag in data[x]['kwds']:
+                    n += 1
+                else:
+                    pass
+        if n >= min_matches and x not in data[feed]['links']:
+            data[feed]['links'].update({x: n})
+        else:
+            pass
+    return data
+
+
+def get_links():
+    nodes_links = generate_nodes_links(data=Data())
+    x = []
+    for feed in nodes_links.keys():
+        if len(x) == len(nodes_links.keys()):
+            break
+        else:
+            if feed in x:
+                pass
+            else:
+                x.append(feed)
+                nodes_links = find_links(data=nodes_links, tags=nodes_links[feed]['kwds'], feed=feed)
+    ndlinks = {"nodes": [], "links": []}
+    for n in nodes_links:
+        ndlinks['nodes'].append(n)
+        ndlinks['links'].append([i for i in nodes_links[n]['links'].keys()])
+
+    return ndlinks
