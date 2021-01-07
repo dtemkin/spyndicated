@@ -86,7 +86,7 @@ jupyter-core==4.4.0
 keyring==10.5.1
 keyrings.alt==2.3
 louis==3.4.0
-lxml==4.1.1
+lxml==4.6.2
 Mako==1.0.7
 Markdown==2.6.10
 Markups==2.0.1
