@@ -181,7 +181,7 @@ requests-ftp==0.3.1
 requests-threads==0.1.1
 ReText==7.0.1
 rpy2==2.9.2
-rsa==3.4.2
+rsa==4.1
 ruamel.yaml==0.15.35
 s3transfer==0.1.12
 sagenb-export==3.2
