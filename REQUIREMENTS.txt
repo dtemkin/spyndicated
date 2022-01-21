@@ -62,7 +62,7 @@ imagesize==1.0.0
 imgii==0.3.1
 incremental==17.5.0
 ipykernel==4.6.1
-ipython==6.2.1
+ipython==7.16.3
 ipython-genutils==0.1.0
 ipywidgets==6.0.0
 isc==2.0
