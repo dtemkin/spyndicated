@@ -123,7 +123,7 @@ patsy==0.4.1
 pexpect==4.4.0
 pia==3.3.1
 pickleshare==0.7.4
-Pillow==4.3.0
+Pillow==9.0.1
 plac==0.9.6
 plotly==2.2.2
 pluggy==0.6.0
