@@ -229,7 +229,7 @@ tqdm==4.19.4
 traitlets==4.3.2
 tread==0.9.3
 Twisted==17.9.0
-ujson==1.35
+ujson==5.2.0
 update-checker==0.16
 urllib3==1.22
 w3lib==1.18.0
