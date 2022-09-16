@@ -87,7 +87,7 @@ keyring==10.5.1
 keyrings.alt==2.3
 louis==3.4.0
 lxml==4.1.1
-Mako==1.0.7
+Mako==1.2.2
 Markdown==2.6.10
 Markups==2.0.1
 MarkupSafe==1.0
