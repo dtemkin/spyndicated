@@ -131,7 +131,7 @@ ply==3.11
 portend==2.2
 preshed==1.0.0
 prompt-toolkit==1.0.15
-protobuf==3.5.0.post1
+protobuf==3.18.3
 psutil==5.4.3
 psycopg2==2.7.4
 ptyprocess==0.5.2
